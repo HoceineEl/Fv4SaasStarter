@@ -1,0 +1,13 @@
+alwaysApply: true
+rules:
+  - name: versions-and-docs
+    description: "use filament v4.x with laravel 12, verify exact instructions via Context7 before any action"
+    enforce:
+      - "before writing code or running commands, search Context7 docs for: filament 4.x code examples (context7/filamentphp), laravel 12 compatibility, livewire v3, tailwind v4, vite plugin usage"
+      - "cite the exact context7 source id used"
+      - "state selected versions: laravel ^12, filament ^4.0 (beta), livewire ^3, tailwind ^4, vite ^7"
+      - "prefer laravel 11+ skeleton conventions: providers in bootstrap/providers.php, middleware in bootstrap/app.php, scheduler in routes/console.php"
+  - name: safety
+    enforce:
+      - "avoid overwriting existing frontend unless explicitly asked; use php artisan filament:install (no --scaffold)"
+      - "if migrations require db creds, skip migrate and report clearly"
