@@ -19,11 +19,12 @@ use Illuminate\Support\Collection;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Lab404\Impersonate\Models\Impersonate;
 
 class User extends Authenticatable implements FilamentUser, HasDefaultTenant, HasTenants
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles, LogsActivity, SaasModel;
+    use HasFactory, Notifiable, HasRoles, LogsActivity, SaasModel, Impersonate;
 
     protected $fillable = [
         'name',
@@ -80,5 +81,15 @@ class User extends Authenticatable implements FilamentUser, HasDefaultTenant, Ha
     public function canAccessPanel(Panel $panel): bool
     {
         return true;
+    }
+
+    public function canImpersonate(): bool
+    {
+        return $this->hasRole('super_admin');
+    }
+
+    public function canBeImpersonated(): bool
+    {
+        return ! $this->hasRole('super_admin');
     }
 }

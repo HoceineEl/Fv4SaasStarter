@@ -19,6 +19,8 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
+use Filament\Actions\Action;
+use Illuminate\Support\Facades\Route;
 
 class SuperAdminPanelProvider extends PanelProvider
 {
@@ -40,6 +42,14 @@ class SuperAdminPanelProvider extends PanelProvider
       ->widgets([
         AccountWidget::class,
         FilamentInfoWidget::class,
+      ])
+      ->userMenuItems([
+        'leave-impersonation' => Action::make('leaveImpersonation')
+          ->label(__('app.leaveImpersonation'))
+          ->icon('heroicon-o-arrow-uturn-left')
+          ->visible(fn (): bool => app('impersonate')->isImpersonating())
+          ->url(fn (): string => route('impersonate.leave'))
+          ->postToUrl(),
       ])
       ->middleware([
         EncryptCookies::class,

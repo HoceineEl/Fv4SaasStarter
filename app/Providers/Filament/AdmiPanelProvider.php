@@ -22,6 +22,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use BezhanSalleh\FilamentShield\Middleware\SyncShieldTenant;
+use Filament\Actions\Action;
 
 class AdmiPanelProvider extends PanelProvider
 {
@@ -46,6 +47,14 @@ class AdmiPanelProvider extends PanelProvider
             ->widgets([
                 AccountWidget::class,
                 FilamentInfoWidget::class,
+            ])
+            ->userMenuItems([
+                'leave-impersonation' => Action::make('leaveImpersonation')
+                    ->label(__('app.leaveImpersonation'))
+                    ->icon('heroicon-o-arrow-uturn-left')
+                    ->visible(fn (): bool => app('impersonate')->isImpersonating())
+                    ->url(fn (): string => route('impersonate.leave'))
+                    ->postToUrl(),
             ])
             ->middleware([
                 EncryptCookies::class,
