@@ -1,0 +1,22 @@
+---
+alwaysApply: true
+---
+
+### General
+- No obvious comments; only when non-trivial rationale
+
+### PHP
+- Prefer `match` over `switch`
+- Use constructor property promotion; no empty constructors
+- Inject services per usage: method injection (single method), constructor (multiple)
+- Add return types; import classes via `use`
+
+### Laravel
+- Pivot tables named alphabetically (e.g., `project_role`)
+- Observers via attribute: `#[ObservedBy([UserObserver::class])]`
+- Put validation in Form Requests
+- Slim controllers; business logic in Services
+- Prefer helpers: `auth()->id()`, `redirect()->route()`
+- Policies auto-discovered
+- Factories use `fake()`
+- Blade uses Tailwind by default

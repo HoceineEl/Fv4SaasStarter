@@ -2,13 +2,14 @@
 
 namespace App\Classes;
 
+use BackedEnum;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class BaseResource extends Resource
 {
-    protected static ?string $navigationIcon = 'tabler-point-filled';
+    protected static string|BackedEnum|null $navigationIcon = 'tabler-point-filled';
 
     public static function langFile(): string
     {
@@ -23,6 +24,11 @@ class BaseResource extends Resource
     public static function getPluralModelLabel(): string
     {
         return __(static::langFile() . '.title');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return static::getPluralModelLabel();
     }
 
     // @phpstan-ignore-next-line

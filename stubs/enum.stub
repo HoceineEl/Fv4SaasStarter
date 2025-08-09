@@ -1,0 +1,32 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasIcon;
+use Filament\Support\Contracts\HasLabel;
+
+enum {{ class }}: string implements HasColor, HasIcon, HasLabel
+{
+
+    public function getLabel(): string
+    {
+        return __('file.statuses.*');
+    }
+
+    public function getColor(): string | array | null
+    {
+        return match ($this) {
+        };
+    }
+
+    public function getIcon(): ?string
+    {
+        return match ($this) {
+        };
+    }
+}
+
+

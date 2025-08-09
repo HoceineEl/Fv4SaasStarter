@@ -1,0 +1,6 @@
+### mcp usage
+
+- **filament v4 docs source**: Always use Context7 to fetch and verify Filament v4 documentation before writing or changing code.
+- **exact source id**: `/context7/filamentphp-4.x`
+- **url**: [Filament PHP 4.x docs on Context7](https://context7.com/context7/filamentphp-4.x)
+- **requirement**: Cite `/context7/filamentphp-4.x` in responses when using Filament v4 APIs or examples.

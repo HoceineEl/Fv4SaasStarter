@@ -1,0 +1,9 @@
+---
+alwaysApply: true
+---
+### Laravel 11+
+- Providers: only `AppServiceProvider`; register extras in `bootstrap/providers.php`
+- Listeners: rely on auto-discovery via type-hints
+- Scheduler: use `routes/console.php`
+- Middleware aliases: register in `bootstrap/app.php`; prefer route class names
+- Tailwind via Vite on new Blade pages

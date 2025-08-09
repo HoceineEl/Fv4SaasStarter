@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Auth\AdminLogin;
 use App\Models\Tenant;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -19,6 +20,8 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
+use BezhanSalleh\FilamentShield\Middleware\SyncShieldTenant;
 
 class AdmiPanelProvider extends PanelProvider
 {
@@ -30,7 +33,7 @@ class AdmiPanelProvider extends PanelProvider
             ->path('admin')
             ->tenant(Tenant::class, slugAttribute: 'slug')
             ->tenantDomain('{tenant:slug}.' . parse_url(config('app.url'), PHP_URL_HOST))
-            ->login()
+            ->login(AdminLogin::class)
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -52,11 +55,16 @@ class AdmiPanelProvider extends PanelProvider
                 ShareErrorsFromSession::class,
                 VerifyCsrfToken::class,
                 SubstituteBindings::class,
-                DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->tenantMiddleware([
+                SyncShieldTenant::class,
+            ], isPersistent: true)
+            ->plugins([
+                FilamentShieldPlugin::make(),
             ]);
     }
 }

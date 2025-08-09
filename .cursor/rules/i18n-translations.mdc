@@ -1,0 +1,32 @@
+---
+alwaysApply: true
+---
+
+
+### Internationalization (i18n) – Arabic and English
+
+- **require translation helper**: Use `__()` for every user-facing string in PHP and Blade. No hardcoded UI text in resources, actions, labels, buttons, notifications, validation messages, errors, or exceptions.
+- **languages**: Maintain matching keys in both `lang/en/*.php` and `lang/ar/*.php`. Prefer dot-notation keys (e.g., `tenants.title`, `tenants.titleSingle`).
+- **resource key convention**: Resource translation keys must follow the slug-based convention provided by `App\Classes\BaseResource`:
+  - `resource slug plural . label` equivalents are: `slug.title` (plural) and `slug.titleSingle` (singular)
+  - All Filament labels must resolve via these keys
+- **extend BaseResource**: All Filament resources must extend `App\Classes\BaseResource` to inherit label translation behavior.
+- **placeholders**: Use named placeholders with replacements, e.g. `__('users.welcome', ['name' => $user->name])`.
+- **blade**: Use `__('...')` or `@lang('...')`. Avoid inline literals.
+- **php (controllers/models/console/policies)**: Wrap any user-visible text with `__()`.
+- **filament v4**:
+  - Labels/titles: use `->label(__('...'))`, `->pluralLabel(__('...'))`, `->navigationLabel(__('...'))`.
+  - Tables/forms: `TextColumn::make(...)->label(__('...'))`, inputs `->label(__('...'))`, `->helperText(__('...'))`, actions `->label(__('...'))`, empty states `->heading(__('...'))`, `->description(__('...'))`.
+  - Page headings/breadcrumbs: return translated strings from overrides using `__()`.
+- **validation**: Define messages in `lang/*/validation.php` or feature files; do not hardcode in rules.
+- **notifications/toasts**: Translate all titles and bodies via `__()`.
+- **javascript**: Do not hardcode UI text. Inject translated strings from Blade (data/meta/JSON) and consume in JS.
+- **fallbacks**: Ensure both `en` and `ar` have entries for every used key. Use placeholders instead of concatenation.
+
+Examples
+- BAD: `TextColumn::make('name')->label('Name')`
+- GOOD: `TextColumn::make('name')->label(__('columns.name'))`
+
+- BAD: `TextColumn::make('name')->label('Name')`
+- GOOD: `TextColumn::make('name')->label(__('columns.name'))`
+

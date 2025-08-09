@@ -1,0 +1,17 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use App\Models\Concerns\ForTenant;
+use App\Models\Concerns\SaasModel;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class {{ class }} extends Model
+{
+  use SaasModel;
+  use ForTenant;
+  use SoftDeletes;
+}
