@@ -8,5 +8,6 @@ return [
   'N\A' => 'غير متوفر',
 
   'tenancy' => 'التعددية (المستأجرون)',
-    'leaveImpersonation' => 'إنهاء الانتحال',
+  'impersonate' => 'تقمص المستخدم',
+  'stop_impersonating' => 'إيقاف التقمص',
 ];

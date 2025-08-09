@@ -2,11 +2,10 @@
 
 namespace App\Filament\SuperAdmin\Resources\Users\Tables;
 
-use Filament\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Support\Facades\Auth;
+use Filament\Actions\Action;
 
 class UsersTable
 {
@@ -32,13 +31,13 @@ class UsersTable
           ->relationship('roles', 'name')
           ->label(__('users.roles')),
       ])
-      ->recordActions([
+      ->actions([
         Action::make('impersonate')
-          ->label(__('users.impersonate'))
-          ->icon('heroicon-m-arrow-right-start-on-rectangle')
-          ->visible(fn ($record) => Auth::user()?->canImpersonate() && $record->canBeImpersonated())
-          ->url(fn ($record): string => route('impersonate', $record->getKey()))
-          ->postToUrl(),
+          ->label(__('app.impersonate'))
+          ->icon('heroicon-o-user')
+          ->color('pink')
+          ->url(fn($record) => route('impersonate', $record->id))
+          ->visible(fn($record) => auth()->check() && auth()->id() !== $record->id),
       ]);
   }
 }

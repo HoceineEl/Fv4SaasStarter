@@ -2,15 +2,13 @@
 
 namespace App\Filament\SuperAdmin\Resources\Tenants\Tables;
 
-use App\Models\User;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\Action;
 use Filament\Actions\ViewAction;
+use Filament\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Support\Facades\Auth;
 
 class TenantsTable
 {
@@ -37,20 +35,12 @@ class TenantsTable
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),
-                Action::make('impersonateTenantAdmin')
-                    ->label(__('tenants.impersonate'))
-                    ->icon('heroicon-m-user-switch')
-                    ->visible(fn () => Auth::user()?->canImpersonate())
-                    ->action(function ($record) {
-                        $admin = User::query()
-                            ->whereHas('tenants', fn ($q) => $q->whereKey($record->getKey()))
-                            ->whereHas('roles', fn ($q) => $q->where('name', 'panel_user'))
-                            ->first();
-                        if ($admin) {
-                            Auth::user()->impersonate($admin);
-                            return redirect()->to('/');
-                        }
-                    }),
+                Action::make('impersonate-as-tenant-admin')
+                    ->label(__('app.impersonate'))
+                    ->icon('heroicon-o-user')
+                    ->color('pink')
+                    ->url(fn($record) => route('impersonate', $record->users()->first()?->id))
+                    ->visible(fn($record) => auth()->check() && $record->users()->exists()),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

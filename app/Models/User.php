@@ -82,14 +82,4 @@ class User extends Authenticatable implements FilamentUser, HasDefaultTenant, Ha
     {
         return true;
     }
-
-    public function canImpersonate(): bool
-    {
-        return $this->hasRole('super_admin');
-    }
-
-    public function canBeImpersonated(): bool
-    {
-        return ! $this->hasRole('super_admin');
-    }
 }

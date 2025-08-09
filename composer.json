@@ -10,7 +10,7 @@
         "bezhansalleh/filament-language-switch": "^4.0@beta",
         "bezhansalleh/filament-shield": "^4.0@beta",
         "filament/filament": "^4.0",
-        "lab404/laravel-impersonate": "^1.7",
+        "lab404/laravel-impersonate": "*",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "secondnetwork/blade-tabler-icons": "^3.34",

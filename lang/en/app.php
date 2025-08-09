@@ -8,5 +8,6 @@ return [
   'N\A' => 'N/A',
 
   'tenancy' => 'Tenancy',
-    'leaveImpersonation' => 'Leave impersonation',
+  'impersonate' => 'Impersonate',
+  'stop_impersonating' => 'Stop Impersonating',
 ];
