@@ -5,7 +5,6 @@ namespace App\Filament\SuperAdmin\Resources\Users\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Filament\Actions\Action;
 
 class UsersTable
 {
@@ -30,14 +29,6 @@ class UsersTable
         SelectFilter::make('roles')
           ->relationship('roles', 'name')
           ->label(__('users.roles')),
-      ])
-      ->actions([
-        Action::make('impersonate')
-          ->label(__('app.impersonate'))
-          ->icon('heroicon-o-user')
-          ->color('pink')
-          ->url(fn($record) => route('impersonate', $record->id))
-          ->visible(fn($record) => auth()->check() && auth()->id() !== $record->id),
       ]);
   }
 }

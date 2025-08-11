@@ -2,19 +2,3 @@
 
 @import "tailwindcss/preflight";
 @import "tailwindcss/utilities";
-
-@font-face {
-  font-family: 'Cairo';
-  src: url('/fonts/cairo/Cairo-VariableFont_slnt,wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-:root {
-  --font-sans: Cairo, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Noto Sans, "Apple Color Emoji", "Segoe UI Emoji";
-}
-
-html, body {
-  font-family: var(--font-sans);
-}

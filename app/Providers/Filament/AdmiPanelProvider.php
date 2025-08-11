@@ -14,7 +14,6 @@ use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
-use Filament\FontProviders\LocalFontProvider;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -37,14 +36,6 @@ class AdmiPanelProvider extends PanelProvider
             ->login(AdminLogin::class)
             ->colors([
                 'primary' => Color::Amber,
-            ])
-            ->font('Cairo', url: asset('css/app.css'), provider: LocalFontProvider::class)
-            ->userMenuItems([
-                \Filament\Actions\Action::make('stop-impersonating')
-                    ->label(__('app.stop_impersonating'))
-                    ->visible(fn() => app('impersonate')->isImpersonating())
-                    ->url(fn () => route('impersonate.leave'))
-                    ->postToUrl(),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -74,7 +65,6 @@ class AdmiPanelProvider extends PanelProvider
             ], isPersistent: true)
             ->plugins([
                 FilamentShieldPlugin::make(),
-            ])
-            ->viteTheme('resources/css/filament/admin/theme.css');
+            ]);
     }
 }

@@ -19,12 +19,11 @@ use Illuminate\Support\Collection;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
-use Lab404\Impersonate\Models\Impersonate;
 
 class User extends Authenticatable implements FilamentUser, HasDefaultTenant, HasTenants
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles, LogsActivity, SaasModel, Impersonate;
+    use HasFactory, Notifiable, HasRoles, LogsActivity, SaasModel;
 
     protected $fillable = [
         'name',
